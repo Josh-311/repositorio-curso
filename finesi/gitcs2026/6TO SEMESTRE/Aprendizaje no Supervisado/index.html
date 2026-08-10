@@ -1,1 +1,1516 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Aprendizaje No Supervisado - Resumen del Sílabo</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    :root {
+        --bg: #f4f7fb;
+        --card: #ffffff;
+        --text: #172033;
+        --muted: #667085;
+        --primary: #4f46e5;
+        --secondary: #7c3aed;
+        --border: #e4e7ec;
+        --soft: #eef2ff;
+        --success: #16a34a;
+        --warning: #f59e0b;
+    }
+
+    body.dark {
+        --bg: #0f172a;
+        --card: #1e293b;
+        --text: #f8fafc;
+        --muted: #94a3b8;
+        --primary: #818cf8;
+        --secondary: #a78bfa;
+        --border: #334155;
+        --soft: #312e81;
+    }
+
+    body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        transition: .3s;
+        line-height: 1.6;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 250px;
+        height: 100vh;
+        background: linear-gradient(180deg, #312e81, #4f46e5);
+        color: white;
+        padding: 25px 18px;
+        z-index: 1000;
+        overflow-y: auto;
+    }
+
+    .logo {
+        text-align: center;
+        margin-bottom: 35px;
+    }
+
+    .logo-icon {
+        width: 65px;
+        height: 65px;
+        background: rgba(255,255,255,.15);
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+        font-size: 30px;
+    }
+
+    .logo h2 {
+        margin-top: 12px;
+        font-size: 18px;
+    }
+
+    .logo p {
+        font-size: 12px;
+        opacity: .75;
+    }
+
+    .menu button {
+        width: 100%;
+        border: none;
+        background: transparent;
+        color: white;
+        padding: 13px 15px;
+        text-align: left;
+        border-radius: 10px;
+        margin-bottom: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: .2s;
+    }
+
+    .menu button:hover,
+    .menu button.active {
+        background: rgba(255,255,255,.18);
+    }
+
+    /* MAIN */
+    .main {
+        margin-left: 250px;
+        padding: 30px;
+        max-width: 1500px;
+    }
+
+    .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        gap: 15px;
+    }
+
+    .topbar h1 {
+        font-size: 28px;
+    }
+
+    .topbar p {
+        color: var(--muted);
+    }
+
+    .actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    .icon-btn {
+        border: 1px solid var(--border);
+        background: var(--card);
+        color: var(--text);
+        width: 43px;
+        height: 43px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+    /* HERO */
+    .hero {
+        background: linear-gradient(135deg, #312e81, #7c3aed);
+        color: white;
+        border-radius: 20px;
+        padding: 35px;
+        margin-bottom: 25px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero::after {
+        content: "∑";
+        position: absolute;
+        right: 50px;
+        top: 10px;
+        font-size: 150px;
+        opacity: .08;
+    }
+
+    .hero h2 {
+        font-size: 32px;
+        margin-bottom: 8px;
+    }
+
+    .hero p {
+        opacity: .88;
+        max-width: 800px;
+    }
+
+    .badge {
+        display: inline-block;
+        background: rgba(255,255,255,.18);
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+
+    /* CARDS */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+        margin-bottom: 25px;
+    }
+
+    .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,.04);
+    }
+
+    .stat {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .stat-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 13px;
+        background: var(--soft);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 23px;
+    }
+
+    .stat h3 {
+        font-size: 22px;
+    }
+
+    .stat p {
+        font-size: 12px;
+        color: var(--muted);
+    }
+
+    /* SECTION */
+    section {
+        margin-bottom: 35px;
+        scroll-margin-top: 20px;
+    }
+
+    .section-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .section-title h2 {
+        font-size: 23px;
+    }
+
+    .section-title span {
+        color: var(--muted);
+        font-size: 13px;
+    }
+
+    /* INFO */
+    .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .info-card h3 {
+        margin-bottom: 12px;
+        color: var(--primary);
+    }
+
+    .info-card p {
+        color: var(--muted);
+        font-size: 14px;
+    }
+
+    /* UNITS */
+    .unit {
+        margin-bottom: 20px;
+        border-radius: 18px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        background: var(--card);
+    }
+
+    .unit-header {
+        padding: 22px;
+        background: linear-gradient(135deg, #eef2ff, #f5f3ff);
+        color: #312e81;
+    }
+
+    body.dark .unit-header {
+        background: #25215a;
+        color: #c7d2fe;
+    }
+
+    .unit-header h3 {
+        font-size: 20px;
+    }
+
+    .unit-header p {
+        font-size: 13px;
+        margin-top: 5px;
+    }
+
+    .week-list {
+        padding: 10px;
+    }
+
+    .week {
+        display: grid;
+        grid-template-columns: 90px 1fr;
+        gap: 15px;
+        padding: 17px;
+        border-bottom: 1px solid var(--border);
+        transition: .2s;
+    }
+
+    .week:last-child {
+        border-bottom: none;
+    }
+
+    .week:hover {
+        background: var(--soft);
+    }
+
+    .week-number {
+        font-weight: bold;
+        color: var(--primary);
+    }
+
+    .week h4 {
+        margin-bottom: 5px;
+    }
+
+    .week p {
+        color: var(--muted);
+        font-size: 13px;
+    }
+
+    /* TOPICS */
+    .topics {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+    }
+
+    .topic {
+        background: var(--soft);
+        color: var(--primary);
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+    }
+
+    /* SEARCH */
+    .search-box {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .search-box input {
+        width: 100%;
+        padding: 15px 18px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--card);
+        color: var(--text);
+        outline: none;
+        font-size: 14px;
+    }
+
+    .search-box input:focus {
+        border-color: var(--primary);
+    }
+
+    /* TECHNIQUES */
+    .tech-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+
+    .tech {
+        padding: 18px;
+        border: 1px solid var(--border);
+        background: var(--card);
+        border-radius: 14px;
+    }
+
+    .tech h4 {
+        color: var(--primary);
+        margin-bottom: 5px;
+    }
+
+    .tech p {
+        color: var(--muted);
+        font-size: 12px;
+    }
+
+    /* EVALUATION */
+    .evaluation {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .eval-item {
+        border: 1px solid var(--border);
+        background: var(--card);
+        padding: 22px;
+        border-radius: 15px;
+    }
+
+    .progress {
+        width: 100%;
+        height: 10px;
+        background: var(--border);
+        border-radius: 10px;
+        overflow: hidden;
+        margin-top: 12px;
+    }
+
+    .progress-bar {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        border-radius: 10px;
+    }
+
+    .eval-item small {
+        color: var(--muted);
+    }
+
+    /* TOOLS */
+    .tools {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .tool {
+        padding: 10px 16px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: var(--card);
+        font-size: 13px;
+    }
+
+    /* FOOTER */
+    footer {
+        text-align: center;
+        padding: 30px;
+        color: var(--muted);
+        font-size: 12px;
+    }
+
+    /* RESPONSIVE */
+    @media(max-width: 1100px) {
+        .grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .tech-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media(max-width: 800px) {
+        .sidebar {
+            width: 70px;
+            padding: 15px 8px;
+        }
+
+        .logo h2,
+        .logo p,
+        .menu span {
+            display: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            font-size: 20px;
+        }
+
+        .main {
+            margin-left: 70px;
+            padding: 20px;
+        }
+
+        .info-grid,
+        .evaluation {
+            grid-template-columns: 1fr;
+        }
+
+        .tech-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .hero h2 {
+            font-size: 24px;
+        }
+    }
+
+    @media(max-width: 550px) {
+        .grid {
+            grid-template-columns: 1fr;
+        }
+
+        .week {
+            grid-template-columns: 1fr;
+        }
+
+        .topbar {
+            align-items: flex-start;
+        }
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    .highlight {
+        animation: highlight .8s;
+    }
+
+    @keyframes highlight {
+        50% {
+            transform: scale(1.02);
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <div class="logo">
+        <div class="logo-icon">🧠</div>
+        <h2>ANS</h2>
+        <p>EST314 · 2026-I</p>
+    </div>
+
+    <nav class="menu">
+
+        <button class="active" onclick="irA('inicio', this)">
+            🏠 <span>Inicio</span>
+        </button>
+
+        <button onclick="irA('resumen', this)">
+            📖 <span>Resumen</span>
+        </button>
+
+        <button onclick="irA('unidad1', this)">
+            1️⃣ <span>Unidad I</span>
+        </button>
+
+        <button onclick="irA('unidad2', this)">
+            2️⃣ <span>Unidad II</span>
+        </button>
+
+        <button onclick="irA('tecnicas', this)">
+            🧪 <span>Técnicas</span>
+        </button>
+
+        <button onclick="irA('evaluacion', this)">
+            📝 <span>Evaluación</span>
+        </button>
+
+        <button onclick="irA('herramientas', this)">
+            💻 <span>Herramientas</span>
+        </button>
+
+    </nav>
+
+</aside>
+
+
+<!-- MAIN -->
+<main class="main">
+
+    <!-- TOPBAR -->
+    <div class="topbar" id="inicio">
+
+        <div>
+            <h1>Aprendizaje No Supervisado</h1>
+            <p>Resumen interactivo del sílabo · EST314</p>
+        </div>
+
+        <div class="actions">
+            <button class="icon-btn" onclick="toggleDark()" title="Modo oscuro">
+                🌙
+            </button>
+        </div>
+
+    </div>
+
+
+    <!-- HERO -->
+    <div class="hero">
+
+        <span class="badge">INGENIERÍA ESTADÍSTICA E INFORMÁTICA</span>
+
+        <h2>Aprendizaje No Supervisado</h2>
+
+        <p>
+            Curso orientado a la preparación y análisis de datos,
+            reducción de dimensionalidad, agrupamiento y reglas de
+            asociación mediante técnicas de aprendizaje no supervisado.
+        </p>
+
+    </div>
+
+
+    <!-- STATS -->
+    <div class="grid">
+
+        <div class="card stat">
+            <div class="stat-icon">🎓</div>
+            <div>
+                <h3>04</h3>
+                <p>Créditos</p>
+            </div>
+        </div>
+
+        <div class="card stat">
+            <div class="stat-icon">⏱️</div>
+            <div>
+                <h3>05 h</h3>
+                <p>Horas semanales</p>
+            </div>
+        </div>
+
+        <div class="card stat">
+            <div class="stat-icon">📅</div>
+            <div>
+                <h3>18</h3>
+                <p>Semanas</p>
+            </div>
+        </div>
+
+        <div class="card stat">
+            <div class="stat-icon">📚</div>
+            <div>
+                <h3>02</h3>
+                <p>Unidades</p>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- RESUMEN -->
+    <section id="resumen">
+
+        <div class="section-title">
+            <h2>📖 Resumen general</h2>
+            <span>Información principal</span>
+        </div>
+
+        <div class="info-grid">
+
+            <div class="card info-card">
+
+                <h3>🎯 Propósito del curso</h3>
+
+                <p>
+                    Proponer y aplicar técnicas de preparación,
+                    preprocesamiento, reducción de dimensionalidad,
+                    agrupamiento y reglas de asociación sobre conjuntos
+                    de datos y sus aplicaciones.
+                </p>
+
+            </div>
+
+            <div class="card info-card">
+
+                <h3>🏆 Logro de aprendizaje</h3>
+
+                <p>
+                    Aplicar adecuadamente técnicas de aprendizaje
+                    no supervisado para desarrollar casos avanzados,
+                    considerando metodología, reducción de dimensionalidad,
+                    agrupamiento y reglas de decisiones.
+                </p>
+
+            </div>
+
+            <div class="card info-card">
+
+                <h3>📌 Prerrequisito</h3>
+
+                <p>
+                    EST312 - Estadística Computacional.
+                </p>
+
+            </div>
+
+            <div class="card info-card">
+
+                <h3>👨‍🏫 Docente</h3>
+
+                <p>
+                    Aleman Gonzales Leonid<br>
+                    Especialidad: Ingeniería de Software / Ciencia de Datos.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- BUSCADOR -->
+    <section>
+
+        <div class="section-title">
+            <h2>🔎 Buscar en el sílabo</h2>
+            <span>Escribe una técnica o tema</span>
+        </div>
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="busqueda"
+                placeholder="Ejemplo: PCA, K-Means, DBSCAN, reglas..."
+                onkeyup="buscar()"
+            >
+
+        </div>
+
+    </section>
+
+
+    <!-- UNIDAD 1 -->
+    <section id="unidad1">
+
+        <div class="section-title">
+            <h2>1️⃣ Unidad I — Preprocesamiento y reducción</h2>
+            <span>Semanas 1–9</span>
+        </div>
+
+        <div class="unit">
+
+            <div class="unit-header">
+
+                <h3>Metodología, preprocesamiento y reducción de dimensionalidad</h3>
+
+                <p>
+                    Desarrollo del 30 de marzo al 1 de junio de 2026.
+                </p>
+
+            </div>
+
+            <div class="week-list">
+
+                <div class="week searchable">
+                    <div class="week-number">SEMANA 1</div>
+                    <div>
+                        <h4>Introducción al aprendizaje automático</h4>
+                        <p>
+                            Tipos de aprendizaje automático, aprendizaje
+                            no supervisado, diferencias y aplicaciones reales.
+                        </p>
+                        <div class="topics">
+                            <span class="topic">Machine Learning</span>
+                            <span class="topic">No Supervisado</span>
+                            <span class="topic">Aplicaciones</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="week searchable">
+                    <div class="week-number">SEMANA 2</div>
+                    <div>
+                        <h4>Metodología de proyectos</h4>
+                        <p>
+                            Proyectos basados en aprendizaje automático
+                            no supervisado, flujo de trabajo y elementos.
+                        </p>
+                        <div class="topics">
+                            <span class="topic">Metodología</span>
+                            <span class="topic">Flujo de trabajo</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="week searchable">
+                    <div class="week-number">SEMANA 3</div>
+                    <div>
+                        <h4>Preprocesamiento de datos</h4>
+                        <p>
+                            Preparación, limpieza, transformación y
+                            codificación de variables.
+                        </p>
+                        <div class="topics">
+                            <span class="topic">Limpieza</span>
+                            <span class="topic">Transformación</span>
+                            <span class="topic">Codificación</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="week searchable">
+                    <div class="week-number">SEMANA 4</div>
+                    <div>
+                        <h4>Data Wrangling e Ingeniería de características</h4>
+                        <p>
+                            Análisis de técnicas de Data Wrangling y
+                            Feature Engineering.
+                        </p>
+                        <div class="topics">
+                            <span class="topic">Data Wrangling</span>
+                            <span class="topic">Feature Engineering</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="week searchable">
+                    <div class="week-number">SEMANA 5</div>
+                    <div>
+                        <h4>Reducción de dimensionalidad</h4>
+                        <p>
+                            Métodos lineales y no lineales para reducción
+                            de dimensionalidad y extracción de características.
+                        </p>
+                        <div class="topics">
+                            <span class="topic">PCA</span>
+                            <span class="topic">SVD</span>
+                            <span class="topic">LDA</span>
+                            <span class="topic">t-SNE</span>
+                            <span class="topic">UMAP</span>
+                            <span class="topic">Isomap</span>
+                            <span class="topic">LLE</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="week searchable">
+                    <div class="week-number">SEMANA 6</div>
+                    <div>
+                        <h4>Redes neuronales</h4>
+                        <p>
+                            Aplicación de redes neuronales para reducción
+                            de dimensionalidad.
+                        </p>
+                        <div class="topics">
+                            <span class="topic">Redes neuronales</span>
+                            <span class="topic">Reducción</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="week searchable">
+                    <div class="week-number">SEMANA 7</div>
+                    <div>
+                        <h4>Métodos probabilísticos y basados en grafos</h4>
+                        <p>
+                            Factor Analysis, Gaussian Processes,
+                            Latent Variable Models y Laplacian Eigenmaps.
+                        </p>
+                        <div class="topics">
+                            <span class="topic">Factor Analysis</span>
+                            <span class="topic">Gaussian Processes</span>
+                            <span class="topic">Laplacian Eigenmaps</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="week searchable">
+                    <div class="week-number">SEMANA 8</div>
+                    <div>
+                        <h4>Extracción de características avanzada</h4>
+                        <p>
+                            Técnicas modernas, SimCLR y extracción para
+                            detección de anomalías.
+                        </p>
+                        <div class="topics">
+                            <span class="topic">SimCLR</span>
+                            <span class="topic">Isolation Forest</span>
+                            <span class="topic">One-Class SVM</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="week searchable">
+                    <div class="week-number">SEMANA 9</div>
+                    <div>
+                        <h4>Proyecto y evaluación parcial</h4>
+                        <p>
+                            Presentación del avance del proyecto de aplicación,
+                            evaluación y retroalimentación.
+                        </p>
+                        <div class="topics">
+                            <span class="topic">Proyecto</span>
+                            <span class="topic">Evaluación</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- UNIDAD 2 -->
+    <section id="unidad2">
+
+        <div class="section-title">
+            <h2>2️⃣ Unidad II — Clustering y reglas de asociación</h2>
+            <span>Semanas 10–18</span>
+        </div>
+
+        <div class="unit">
+
+            <div class="unit-header">
+
+                <h3>Agrupamiento, reglas de asociación y aplicaciones avanzadas</h3>
+
+                <p>
+                    Desarrollo del 1 de junio al 31 de julio de 2026.
+                </p>
+
+            </div>
+
+            <div class="week-list">
+
+                <div class="week searchable">
+                    <div class="week-number">SEMANA 10</div>
+                    <div>
+                        <h4>Clustering particional</h4>
+                        <p>
+                            Concepto de distancia y métodos basados en
+                            centroides.
+                        </p>
+                        <div class="topics">
+                            <span class="topic">K-Means</span>
+                            <span class="topic">K-Medoids</span>
+                            <span class="topic">Centroides</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="week searchable">
+                    <div class="week-number">SEMANA 11</div>
+                    <div>
+                        <h4>Clustering jerárquico y densidad</h4>
+                        <p>
+                            Métodos jerárquicos y métodos basados en densidad.
+                        </p>
+                        <div class="topics">
+                            <span class="topic">Agglomerative</span>
+                            <span class="topic">DBSCAN</span>
+                            <span class="topic">HDBSCAN</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="week searchable">
+                    <div class="week-number">SEMANA 12</div>
+                    <div>
+                        <h4>Clustering basado en modelos y grafos</h4>
+                        <p>
+                            Métodos probabilísticos y técnicas basadas
+                            en grafos.
+                        </p>
+                        <div class="topics">
+                            <span class="topic">Gaussian Mixture Model</span>
+                            <span class="topic">Spectral Clustering</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="week searchable">
+                    <div class="week-number">SEMANA 13</div>
+                    <div>
+                        <h4>Clustering avanzado</h4>
+                        <p>
+                            Agrupamiento difuso, subespacios y Deep Clustering.
+                        </p>
+                        <div class="topics">
+                            <span class="topic">Fuzzy C-Means</span>
+                            <span class="topic">CLIQUE</span>
+                            <span class="topic">PROCLUS</span>
+                            <span class="topic">DEC</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="week searchable">
+                    <div class="week-number">SEMANA 14</div>
+                    <div>
+                        <h4>Reglas de asociación</h4>
+                        <p>
+                            Métricas fundamentales y avanzadas y algoritmos
+                            clásicos.
+                        </p>
+                        <div class="topics">
+                            <span class="topic">Support</span>
+                            <span class="topic">Confidence</span>
+                            <span class="topic">Leverage</span>
+                            <span class="topic">Jaccard</span>
+                            <span class="topic">Apriori</span>
+                            <span class="topic">FP-Growth</span>
+                            <span class="topic">Eclat</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="week searchable">
+                    <div class="week-number">SEMANA 15</div>
+                    <div>
+                        <h4>Variantes de reglas de asociación</h4>
+                        <p>
+                            Asociación ponderada, negativa, de alto orden
+                            y reglas secuenciales.
+                        </p>
+                        <div class="topics">
+                            <span class="topic">PrefixSpan</span>
+                            <span class="topic">SPADE</span>
+                            <span class="topic">Reglas secuenciales</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="week searchable">
+                    <div class="week-number">SEMANA 16</div>
+                    <div>
+                        <h4>Enfoques avanzados</h4>
+                        <p>
+                            Reglas para datos continuos, Big Data,
+                            grafos y aprendizaje profundo.
+                        </p>
+                        <div class="topics">
+                            <span class="topic">Big Data</span>
+                            <span class="topic">Grafos</span>
+                            <span class="topic">Deep Learning</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="week searchable">
+                    <div class="week-number">SEMANA 17</div>
+                    <div>
+                        <h4>Integración del proyecto</h4>
+                        <p>
+                            Integración y revisión de proyectos relacionados
+                            con aprendizaje no supervisado.
+                        </p>
+                        <div class="topics">
+                            <span class="topic">Proyecto</span>
+                            <span class="topic">Revisión</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="week searchable">
+                    <div class="week-number">SEMANA 18</div>
+                    <div>
+                        <h4>Presentación y defensa</h4>
+                        <p>
+                            Presentación y defensa del proyecto desarrollado.
+                        </p>
+                        <div class="topics">
+                            <span class="topic">Defensa</span>
+                            <span class="topic">Evaluación final</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- TÉCNICAS -->
+    <section id="tecnicas">
+
+        <div class="section-title">
+            <h2>🧪 Técnicas que debes dominar</h2>
+            <span>Mapa rápido de estudio</span>
+        </div>
+
+        <div class="tech-grid">
+
+            <div class="tech searchable">
+                <h4>PCA</h4>
+                <p>
+                    Técnica clásica de reducción de dimensionalidad.
+                </p>
+            </div>
+
+            <div class="tech searchable">
+                <h4>SVD</h4>
+                <p>
+                    Método de descomposición utilizado en reducción
+                    y extracción de características.
+                </p>
+            </div>
+
+            <div class="tech searchable">
+                <h4>t-SNE</h4>
+                <p>
+                    Técnica no lineal para reducción y representación
+                    de datos.
+                </p>
+            </div>
+
+            <div class="tech searchable">
+                <h4>UMAP</h4>
+                <p>
+                    Método moderno de reducción de dimensionalidad.
+                </p>
+            </div>
+
+            <div class="tech searchable">
+                <h4>K-Means</h4>
+                <p>
+                    Agrupamiento particional basado en centroides.
+                </p>
+            </div>
+
+            <div class="tech searchable">
+                <h4>DBSCAN</h4>
+                <p>
+                    Agrupamiento basado en densidad.
+                </p>
+            </div>
+
+            <div class="tech searchable">
+                <h4>HDBSCAN</h4>
+                <p>
+                    Variante avanzada del agrupamiento basado en densidad.
+                </p>
+            </div>
+
+            <div class="tech searchable">
+                <h4>Gaussian Mixture Model</h4>
+                <p>
+                    Agrupamiento basado en modelos probabilísticos.
+                </p>
+            </div>
+
+            <div class="tech searchable">
+                <h4>Spectral Clustering</h4>
+                <p>
+                    Técnica de agrupamiento basada en grafos.
+                </p>
+            </div>
+
+            <div class="tech searchable">
+                <h4>Fuzzy C-Means</h4>
+                <p>
+                    Agrupamiento difuso.
+                </p>
+            </div>
+
+            <div class="tech searchable">
+                <h4>Apriori</h4>
+                <p>
+                    Algoritmo clásico para reglas de asociación.
+                </p>
+            </div>
+
+            <div class="tech searchable">
+                <h4>FP-Growth</h4>
+                <p>
+                    Algoritmo para extracción de patrones frecuentes.
+                </p>
+            </div>
+
+            <div class="tech searchable">
+                <h4>Isolation Forest</h4>
+                <p>
+                    Técnica incluida en el sílabo para detección de anomalías.
+                </p>
+            </div>
+
+            <div class="tech searchable">
+                <h4>One-Class SVM</h4>
+                <p>
+                    Técnica para extracción/detección de anomalías.
+                </p>
+            </div>
+
+            <div class="tech searchable">
+                <h4>Deep Clustering</h4>
+                <p>
+                    Enfoques modernos de agrupamiento profundo.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- EVALUACIÓN -->
+    <section id="evaluacion">
+
+        <div class="section-title">
+            <h2>📝 Evaluación</h2>
+            <span>Distribución del curso</span>
+        </div>
+
+        <div class="evaluation">
+
+            <div class="eval-item">
+
+                <h3>Unidad I</h3>
+
+                <p>
+                    Evaluación de técnicas básicas de ANS
+                </p>
+
+                <div class="progress">
+                    <div class="progress-bar" style="width:50%"></div>
+                </div>
+
+                <small>50%</small>
+
+                <br><br>
+
+                <p>
+                    Evaluación parcial de reducción de dimensionalidad
+                </p>
+
+                <div class="progress">
+                    <div class="progress-bar" style="width:50%"></div>
+                </div>
+
+                <small>50%</small>
+
+            </div>
+
+
+            <div class="eval-item">
+
+                <h3>Unidad II</h3>
+
+                <p>
+                    Evaluación de técnicas avanzadas de agrupamiento
+                </p>
+
+                <div class="progress">
+                    <div class="progress-bar" style="width:50%"></div>
+                </div>
+
+                <small>50%</small>
+
+                <br><br>
+
+                <p>
+                    Evaluación final de Aprendizaje No Supervisado
+                </p>
+
+                <div class="progress">
+                    <div class="progress-bar" style="width:50%"></div>
+                </div>
+
+                <small>50%</small>
+
+            </div>
+
+        </div>
+
+        <div class="card" style="margin-top:20px;">
+
+            <h3>📊 Promedio final</h3>
+
+            <p style="color:var(--muted); margin-top:8px;">
+                El promedio final se obtiene mediante:
+            </p>
+
+            <div style="
+                margin-top:15px;
+                padding:18px;
+                background:var(--soft);
+                border-radius:12px;
+                text-align:center;
+                font-size:18px;
+                font-weight:bold;
+                color:var(--primary);
+            ">
+                Promedio Final =
+                50% × Unidad I + 50% × Unidad II
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- HERRAMIENTAS -->
+    <section id="herramientas">
+
+        <div class="section-title">
+            <h2>💻 Herramientas y recursos</h2>
+            <span>Entorno de trabajo</span>
+        </div>
+
+        <div class="card">
+
+            <p style="color:var(--muted); margin-bottom:15px;">
+                El sílabo contempla el uso de plataformas de programación
+                y herramientas para desarrollar casos de aprendizaje
+                no supervisado.
+            </p>
+
+            <div class="tools">
+
+                <div class="tool">🐍 Python</div>
+                <div class="tool">📊 R</div>
+                <div class="tool">☁️ Google Colab</div>
+                <div class="tool">📓 Jupyter Notebook</div>
+                <div class="tool">💻 IDE</div>
+                <div class="tool">☁️ Computación en la nube</div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RESUMEN FINAL -->
+    <section>
+
+        <div class="card">
+
+            <h2>🧠 ¿Qué debes aprender del curso?</h2>
+
+            <div style="margin-top:20px;">
+
+                <p>
+                    <strong>1. Preparar datos</strong><br>
+                    Limpiar, transformar y codificar los datos antes
+                    de aplicar los modelos.
+                </p>
+
+                <br>
+
+                <p>
+                    <strong>2. Reducir dimensionalidad</strong><br>
+                    Utilizar técnicas como PCA, SVD, t-SNE, UMAP y
+                    otros métodos para trabajar con variables de alta
+                    dimensionalidad.
+                </p>
+
+                <br>
+
+                <p>
+                    <strong>3. Agrupar datos</strong><br>
+                    Aplicar K-Means, K-Medoids, DBSCAN, HDBSCAN,
+                    Gaussian Mixture Models, Spectral Clustering y
+                    técnicas avanzadas.
+                </p>
+
+                <br>
+
+                <p>
+                    <strong>4. Encontrar asociaciones</strong><br>
+                    Utilizar reglas de asociación y métricas como
+                    support, confidence, leverage y Jaccard.
+                </p>
+
+                <br>
+
+                <p>
+                    <strong>5. Desarrollar un proyecto</strong><br>
+                    Integrar las técnicas aprendidas en un caso aplicado,
+                    presentar los resultados y defender la metodología.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <footer>
+        Aprendizaje No Supervisado · EST314 · Ingeniería Estadística e Informática · 2026-I
+    </footer>
+
+</main>
+
+
+<script>
+
+    /* MODO OSCURO */
+
+    function toggleDark() {
+
+        document.body.classList.toggle("dark");
+
+        if(document.body.classList.contains("dark")) {
+            localStorage.setItem("modo", "dark");
+        } else {
+            localStorage.setItem("modo", "light");
+        }
+    }
+
+    if(localStorage.getItem("modo") === "dark") {
+        document.body.classList.add("dark");
+    }
+
+
+    /* NAVEGACIÓN */
+
+    function irA(id, boton) {
+
+        document.getElementById(id).scrollIntoView({
+            behavior: "smooth"
+        });
+
+        document.querySelectorAll(".menu button")
+            .forEach(btn => btn.classList.remove("active"));
+
+        boton.classList.add("active");
+    }
+
+
+    /* BUSCADOR */
+
+    function buscar() {
+
+        let texto = document
+            .getElementById("busqueda")
+            .value
+            .toLowerCase()
+            .trim();
+
+        let elementos = document.querySelectorAll(".searchable");
+
+        elementos.forEach(elemento => {
+
+            let contenido = elemento.innerText.toLowerCase();
+
+            if(contenido.includes(texto)) {
+
+                elemento.classList.remove("hidden");
+
+            } else {
+
+                elemento.classList.add("hidden");
+
+            }
+
+        });
+    }
+
+
+    /* ACTUALIZAR MENÚ SEGÚN SCROLL */
+
+    const secciones = [
+        "inicio",
+        "resumen",
+        "unidad1",
+        "unidad2",
+        "tecnicas",
+        "evaluacion",
+        "herramientas"
+    ];
+
+    window.addEventListener("scroll", () => {
+
+        let actual = "";
+
+        secciones.forEach(id => {
+
+            const elemento = document.getElementById(id);
+
+            if(elemento) {
+
+                const posicion = elemento.getBoundingClientRect().top;
+
+                if(posicion <= 150) {
+                    actual = id;
+                }
+
+            }
+
+        });
+
+        document.querySelectorAll(".menu button")
+            .forEach(btn => btn.classList.remove("active"));
+
+        const botones = document.querySelectorAll(".menu button");
+
+        const indice = secciones.indexOf(actual);
+
+        if(indice >= 0 && botones[indice]) {
+            botones[indice].classList.add("active");
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
