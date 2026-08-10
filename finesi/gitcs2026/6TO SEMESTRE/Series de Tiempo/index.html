@@ -1,1 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Resumen académico del sílabo de Series de Tiempo">
+<title>Series de Tiempo | Sílabo</title>
+<style>
+:root{--accent:#58a6ff;--bg:#0b1020;--panel:#121a2d;--text:#eef2ff;--muted:#aeb8d0;--line:#26324e}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:linear-gradient(135deg,#080d19,#111a2d 55%,#0b1020);color:var(--text);line-height:1.65}
+.container{width:min(1120px,92%);margin:auto}
+.hero{padding:70px 0 45px;border-bottom:1px solid var(--line)}
+.badge{display:inline-block;padding:6px 12px;border:1px solid var(--accent);color:var(--accent);border-radius:999px;font-size:.85rem;font-weight:700}
+h1{font-size:clamp(2.1rem,5vw,4.3rem);line-height:1.05;margin:18px 0 14px}
+h2{font-size:1.8rem;margin-top:0} h3{font-size:1.25rem;margin:8px 0}
+.lead{font-size:1.08rem;color:var(--muted);max-width:850px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin:28px 0 55px}
+.info,.card{background:rgba(18,26,45,.86);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 12px 30px rgba(0,0,0,.16)}
+.info strong{display:block;color:var(--accent);font-size:.8rem;text-transform:uppercase;letter-spacing:.08em}
+.info span{font-size:1.05rem}
+section{padding:42px 0}
+.section-title{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.section-title::before{content:"";width:5px;height:32px;background:var(--accent);border-radius:5px}
+.unit{color:var(--accent);font-size:.8rem;font-weight:800;letter-spacing:.1em}
+.card p,li{color:var(--muted)} ul{padding-left:20px} .tag{display:inline-block;margin-top:10px;padding:5px 10px;border-radius:8px;background:#1b2740;color:#dbe5ff;font-size:.82rem}
+.timeline{border-left:2px solid var(--accent);padding-left:20px}
+.item{margin-bottom:20px} .item b{color:var(--text)}
+footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted);text-align:center}
+a{color:var(--accent)}
+</style>
+</head>
+<body>
+<header class="hero">
+<div class="container">
+<span class="badge">UNA PUNO · SEMESTRE 2026-I</span>
+<h1>Series de Tiempo</h1>
+<p class="lead">Curso teórico-práctico orientado al desarrollo de habilidades para construir modelos univariantes y producir pronósticos útiles para la toma de decisiones. El sílabo trabaja metodología Box-Jenkins, modelos estacionales y heterocedásticos, además de variables exógenas, modelos multivariantes y redes neuronales.</p>
+<div class="grid">
+<div class="info"><strong>Código</strong><span>EST317</span></div>
+<div class="info"><strong>Docente</strong><span>Lluen Vallejos Cesar Augusto</span></div>
+<div class="info"><strong>Créditos</strong><span>04</span></div>
+<div class="info"><strong>Carga lectiva</strong><span>03 h teóricas + 02 h prácticas (05 h)</span></div>
+<div class="info"><strong>Nivel</strong><span>Avanzado</span></div>
+<div class="info"><strong>Modalidad</strong><span>Presencial</span></div>
+</div>
+</div>
+</header>
 
+<main class="container">
+<section>
+<div class="section-title"><h2>Resumen del curso</h2></div>
+<p>Curso teórico-práctico orientado al desarrollo de habilidades para construir modelos univariantes y producir pronósticos útiles para la toma de decisiones. El sílabo trabaja metodología Box-Jenkins, modelos estacionales y heterocedásticos, además de variables exógenas, modelos multivariantes y redes neuronales.</p>
+</section>
+
+<section>
+<div class="section-title"><h2>Contenido por unidades</h2></div>
+<div class="grid">
+        <article class="card">
+          <div class="unit">UNIDAD 1</div>
+          <h3>Métodos y modelos lineales</h3>
+          <p>Produce pronósticos mediante la metodología Box-Jenkins para series lineales.</p>
+          <ul><li>Suavizamiento y descomposición</li><li>AR, MA y ARMA</li><li>Modelos no estacionarios ARIMA</li><li>Metodología Box-Jenkins</li><li>Modelos SARIMA</li></ul>
+          <div class="tag">Semanas: 1–9</div>
+        </article>
+        
+        <article class="card">
+          <div class="unit">UNIDAD 2</div>
+          <h3>Modelos avanzados</h3>
+          <p>Produce pronósticos con modelos estacionales, heterocedásticos y multivariantes.</p>
+          <ul><li>Modelos SAR, SMA, SARMA y SARIMA</li><li>ARCH y GARCH</li><li>Variables exógenas</li><li>Series temporales multivariantes</li><li>Modelos de redes neuronales</li></ul>
+          <div class="tag">Semanas: 10–18</div>
+        </article>
+        </div>
+</section>
+
+<section>
+<div class="section-title"><h2>Evaluación</h2></div>
+<div class="card"><p>Cada unidad representa el 50% del avance académico. En la Unidad 1 se consideran la Evidencia 1 (50%) y Evidencia 2 (50%); en la Unidad 2, la Evidencia 3 (50%) y Evidencia 4 (50%). El promedio final se obtiene como 50% de la primera unidad promedio parcial + 50% de la segunda.</p></div>
+</section>
+
+<section>
+<div class="section-title"><h2>Enfoque de aprendizaje</h2></div>
+<div class="timeline">
+<div class="item"><b>Aplicación práctica:</b> resolución de problemas, ejercicios y casos relacionados con los contenidos del curso.</div>
+<div class="item"><b>Investigación:</b> aplicación de los modelos y técnicas estudiadas a problemas de investigación.</div>
+<div class="item"><b>Herramientas:</b> uso de software, recursos digitales y aulas virtuales según el sílabo.</div>
+<div class="item"><b>Ética:</b> uso responsable de métodos estadísticos para apoyar la investigación y la toma de decisiones.</div>
+</div>
+</section>
+</main>
+<footer>
+<div class="container">Resumen visual basado en el sílabo oficial del curso · Ingeniería Estadística e Informática · UNA Puno</div>
+</footer>
+</body>
+</html>  
