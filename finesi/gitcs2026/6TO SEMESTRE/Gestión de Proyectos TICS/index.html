@@ -1,1 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sílabo de Gestión de Proyectos TICs - UNA Puno">
+    <title>Gestión de Proyectos TICs | Sílabo</title>
 
+    <style>
+        :root {
+            --accent: #f59e0b;
+            --bg: #08111f;
+            --panel: #101c30;
+            --line: #243653;
+            --text: #edf4ff;
+            --muted: #aab8cf;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(135deg, #07101c, #0e1b2f);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: min(1100px, 92%);
+            margin: auto;
+        }
+
+        header {
+            padding: 70px 0 45px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 7px 14px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            border-radius: 30px;
+            font-size: .8rem;
+            font-weight: 700;
+            letter-spacing: .05em;
+        }
+
+        h1 {
+            font-size: clamp(2.3rem, 5vw, 4.2rem);
+            line-height: 1.05;
+            margin: 20px 0 15px;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        .lead {
+            max-width: 850px;
+            color: var(--muted);
+            font-size: 1.08rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 30px;
+        }
+
+        .info,
+        .card {
+            background: rgba(16, 28, 48, .92);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 22px;
+            box-shadow: 0 12px 35px rgba(0,0,0,.15);
+        }
+
+        .info strong {
+            display: block;
+            color: var(--accent);
+            font-size: .78rem;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            margin-bottom: 5px;
+        }
+
+        section {
+            padding: 42px 0;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .section-title::before {
+            content: "";
+            width: 5px;
+            height: 32px;
+            background: var(--accent);
+            border-radius: 5px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .unit {
+            color: var(--accent);
+            font-size: .78rem;
+            font-weight: 800;
+            letter-spacing: .1em;
+        }
+
+        .card p,
+        .card li,
+        .note {
+            color: var(--muted);
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        .tag {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 10px;
+            background: #1b2941;
+            border-radius: 8px;
+            color: #dbe5ff;
+            font-size: .82rem;
+        }
+
+        footer {
+            border-top: 1px solid var(--line);
+            padding: 30px 0;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+
+        <span class="badge">UNA PUNO · SEMESTRE 2026-I</span>
+
+        <h1>Gestión de Proyectos TICs</h1>
+
+        <p class="lead">
+            Curso de especialidad orientado al desarrollo de conocimientos y
+            habilidades relacionados con la gestión de proyectos de Tecnologías
+            de Información y Comunicación.
+        </p>
+
+        <div class="info-grid">
+
+            <div class="info">
+                <strong>Código</strong>
+                EST315
+            </div>
+
+            <div class="info">
+                <strong>Docente</strong>
+                Melgarejo Bolivar Romel Percy
+            </div>
+
+            <div class="info">
+                <strong>Créditos</strong>
+                04
+            </div>
+
+            <div class="info">
+                <strong>Carga lectiva</strong>
+                03 h teóricas + 02 h prácticas
+            </div>
+
+            <div class="info">
+                <strong>Nivel</strong>
+                Básico
+            </div>
+
+            <div class="info">
+                <strong>Ciclo</strong>
+                VI
+            </div>
+
+            <div class="info">
+                <strong>Modalidad</strong>
+                Presencial
+            </div>
+
+            <div class="info">
+                <strong>Duración</strong>
+                30 de marzo – 31 de julio de 2026
+            </div>
+
+        </div>
+
+    </div>
+</header>
+
+
+<main class="container">
+
+    <section>
+
+        <div class="section-title">
+            <h2>Resumen del curso</h2>
+        </div>
+
+        <div class="card">
+
+            <p>
+                Gestión de Proyectos TICs pertenece al área de estudios de
+                especialidad de Ingeniería Estadística e Informática.
+                El curso se desarrolla durante el semestre 2026-I y contempla
+                actividades teóricas y prácticas.
+            </p>
+
+            <p>
+                El sílabo organiza el desarrollo académico en dos unidades,
+                cada una con una duración de 45 horas y un peso del 50% en
+                el avance académico.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section>
+
+        <div class="section-title">
+            <h2>Contenido por unidades</h2>
+        </div>
+
+        <div class="cards">
+
+            <article class="card">
+
+                <span class="unit">UNIDAD 1</span>
+
+                <h2>Gestión de Proyectos TICs</h2>
+
+                <p>
+                    Primera etapa del desarrollo del curso, orientada al
+                    cumplimiento de los logros de aprendizaje establecidos
+                    para las primeras nueve semanas.
+                </p>
+
+                <ul>
+                    <li>Semanas 1 a 9</li>
+                    <li>45 horas de desarrollo</li>
+                    <li>Actividades teóricas y prácticas</li>
+                    <li>Evidencias de aprendizaje</li>
+                    <li>Retroalimentación formativa</li>
+                </ul>
+
+                <span class="tag">
+                    Avance académico: 50%
+                </span>
+
+            </article>
+
+
+            <article class="card">
+
+                <span class="unit">UNIDAD 2</span>
+
+                <h2>Gestión de Proyectos TICs</h2>
+
+                <p>
+                    Segunda etapa del desarrollo académico, correspondiente
+                    a las semanas 10 a 18 del semestre.
+                </p>
+
+                <ul>
+                    <li>Semanas 10 a 18</li>
+                    <li>45 horas de desarrollo</li>
+                    <li>Actividades teóricas y prácticas</li>
+                    <li>Evidencias de aprendizaje</li>
+                    <li>Retroalimentación formativa</li>
+                </ul>
+
+                <span class="tag">
+                    Avance académico: 50%
+                </span>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <section>
+
+        <div class="section-title">
+            <h2>Evaluación</h2>
+        </div>
+
+        <div class="card">
+
+            <p>
+                Cada unidad representa el 50% del promedio final del curso.
+                El promedio final se obtiene mediante:
+            </p>
+
+            <ul>
+                <li>50% correspondiente a la primera unidad.</li>
+                <li>50% correspondiente a la segunda unidad.</li>
+            </ul>
+
+            <p class="note">
+                El sílabo establece procesos permanentes de evaluación
+                formativa y retroalimentación durante el desarrollo de
+                las unidades.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section>
+
+        <div class="section-title">
+            <h2>Información académica</h2>
+        </div>
+
+        <div class="card">
+
+            <ul>
+                <li>
+                    <strong>Prerrequisito:</strong>
+                    EST313 - Sistemas de Gestión de Base de Datos II
+                </li>
+
+                <li>
+                    <strong>Área curricular:</strong>
+                    Estudios de especialidad
+                </li>
+
+                <li>
+                    <strong>Semestre:</strong>
+                    2026-I
+                </li>
+
+                <li>
+                    <strong>Horas no lectivas:</strong>
+                    1 hora y 40 minutos
+                </li>
+
+                <li>
+                    <strong>Horas virtuales por unidad:</strong>
+                    2 horas
+                </li>
+            </ul>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    Ingeniería Estadística e Informática · UNA Puno<br>
+    Resumen visual del sílabo · Semestre 2026-I
+
+</footer>
+
+</body>
+</html>
